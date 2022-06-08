@@ -92,22 +92,52 @@ get-childitem variable:* or variable:name
 get-childitem $env:
 
 
+ARRAYS
+_________________________________________________________
+how to declare arrays in powershell
+$array = @()
+[array]$another_array = $null
+$number_array = 1,2,3,4,5,6,7,8,9
+$sequential_array = 1..9
 
-``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+finding object by index in array
+$array[10] = finds object at 10th index in array $array
+
+jagged array = array with another array in it
+$nested = @,!,$array,#
+
+Human Views as
+@,
+!,
+1,2,3
+#
+$nested[2][1] = 2
+
+string arrays is array of strings
+polymorphic strings are arrays that contain multiple types of data like strings and integers and floats
+
+.count is a valid method for arrays
+$array[($array.length-1)..1] to reverse an array
+
+
+$ARRAY = (get-random -minimum -10 -maximum 0)..(get-random -Minimum 1 -Maximum 20) 
+
+``````````$````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 ACTIVITIES
 ACTIVITY 1
 1) update-help -force -erroraction silentlycontinue
-2) get-process
-3) get-service
-4) write-host or echo
-5) set-variable, get-variable get-childitem variable:*
+2) get-process, start stop debug wait remove set new,
+3) get-service getwmiobject, getciminstance
+4) write-host or echo, write-output, write-warning, write-progress
+5) set-variable, get-variable get-childitem variable:* clear-variable, remove-variable
 6) get-command
-7) read-input 
+7) read-host
 
 ACTIVITY 2
-1) get-process or ps
-2) get-process 's*'
-3) get-alias -name gal, get-alias -name dir, get-alias -name echo, get-alias -name ?, get-alias -name %, get-alias -name ft
+1) get-process or ps, get-ciminstancem, get-wmiobject
+2) get-process -name s*
+3) get-alias gal,dir,echo,?,%,ft
 4) get-netfirewallrule
 5) set-alias -name gh -value "Get-Help"
 
@@ -122,4 +152,14 @@ ACTIVITY 3
 8) write-host "$var11" - "$var22" = "$sub1"
 9) write-host "$var11" * "$var22" = "$prod1"
 10)write-host "$var11" / "$var22" = "$quo1"
+
+ACTIVITY 4
+Create an array containing a range with a random starting and stopping point.  The starting point will be a random number from -10 through 0.
+The ending point will be a random number from 1 through 20.
+
+$ARRAY = (get-random -minimum -10 -maximum 0)..(get-random -Minimum 1 -Maximum 20)
+$array[($array.length-1)..1] 
+
+
+
 
