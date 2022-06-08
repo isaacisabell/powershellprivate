@@ -121,9 +121,30 @@ polymorphic strings are arrays that contain multiple types of data like strings 
 $array[($array.length-1)..1] to reverse an array
 
 
-$ARRAY = (get-random -minimum -10 -maximum 0)..(get-random -Minimum 1 -Maximum 20) 
+HASH TABLES AND PS PROVIDERS
+__________________________________________________________________________________________________________________
 
-``````````$````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+hash tables are similar to arrays but hold key value pairs, ie a dicitonary in python
+how to create hash table ----> $hashtable = @{}
+
+$ord_hash = [ordered]@{} to create a hashtable ordered the way we want
+
+$ord_hash = [ordered]@{videogame="fortnite" ; IsTrash="yah" ; rating="1" ; working="$False"}
+
+$ord_hash.keys
+$ord_hash.values
+$ord_hash[$ord_hash.keys]
+$ord_hash["videogame", "IsTrash"]
+$ord_hash.playerbase="preteens" to add a new keyvalue pair to ordered hash
+$ord_hash.add("streamer" ; "hope not")
+
+PS PROVIDERS = how to store and interact with an object
+get-psprovider
+get-psdrive
+
+
+
+``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 ACTIVITIES
 ACTIVITY 1
 1) update-help -force -erroraction silentlycontinue
@@ -158,7 +179,7 @@ Create an array containing a range with a random starting and stopping point.  T
 The ending point will be a random number from 1 through 20.
 
 $ARRAY = (get-random -minimum -10 -maximum 0)..(get-random -Minimum 1 -Maximum 20)
-$array[($array.length-1)..1] 
+$reverse = $array[($array.length-1)..0] 
 
 
 
