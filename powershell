@@ -98,9 +98,28 @@ ACTIVITIES
 ACTIVITY 1
 1) update-help -force -erroraction silentlycontinue
 2) get-process
-3)get-service
+3) get-service
 4) write-host or echo
-5)set-variable, get-variable get-childitem variable:*
-6)
+5) set-variable, get-variable get-childitem variable:*
+6) get-command
 7) read-input 
+
+ACTIVITY 2
+1) get-process or ps
+2) get-process 's*'
+3) get-alias -name gal, get-alias -name dir, get-alias -name echo, get-alias -name ?, get-alias -name %, get-alias -name ft
+4) get-netfirewallrule
+5) set-alias -name gh -value "Get-Help"
+
+ACTIVITY 3
+1) $var11 = (get-random -maximum 50 -minimum 25)
+2) $var22 = (get-random -maximum 10 -minimum 1)
+3) $sum = ($var11 + $var22)
+4) $sub = ($var11 - $var22)
+5) $prod = ($var11 * $var22)
+6) $quo = ($var11 / $var22)
+7) write-host "$var11" + "$var22" = "$sum1"
+8) write-host "$var11" - "$var22" = "$sub1"
+9) write-host "$var11" * "$var22" = "$prod1"
+10)write-host "$var11" / "$var22" = "$quo1"
 
