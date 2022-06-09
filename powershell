@@ -136,14 +136,70 @@ $ord_hash.values
 $ord_hash[$ord_hash.keys]
 $ord_hash["videogame", "IsTrash"]
 $ord_hash.playerbase="preteens" to add a new keyvalue pair to ordered hash
-$ord_hash.add("streamer" ; "hope not")
+to add a new keyvalue pair ---->$ord_hash.add("streamer" ; "hope not")
 
 to change a value in a orderedhash use same syntax as adding a new keyvalue pair but with the key of the one you want and the text as replacing value
+
 
 PS PROVIDERS = how to store and interact with an object
 get-psprovider
 get-psdrive
 
+POWERSHELL PIPELINE
+______________________________________________________________________________________________________________________
+output of a powerhsell cmdlet is an object and input for next cmdlet is an object
+objects have properties and methods
+
+get-service | get-member -----> to get methods and properties
+get-command -verb format
+
+format-table, format-wide, format-custom, format-list are options to make outputs more readable
+
+get-service | format-list to make a list of everthing to make it easier to read
+get-service | sort-object -property status to sort services by running or stopped and not alphabetically 
+get-service | group-object -property status to find number of processes stopped and number of processes running
+get-service | Where-Object {$_.status -eq "running"} ------> shows all processes running at time
+get-service | Where-Object {$_.Status -eq 'running'} |Select-Object -first 10 ------> to find first 10 services that are running
+get-childitem | measure-object -----> to find number of objects in current directory, use -path to specify another directory
+(get-service spooler).status
+^^^^^^ can use dot notation to reference objects and methods
+in this instance we want the status of the spooler service
+
+
+use get-member to find properties you can sort on VERY IMPORTANT
+when using sort, sorting integers will be done numerically, if sorting strings it will be done by ascii
+
+
+'what is the answer to life, the universe and everthing?' > test.txt
+$before = Get-ChildItem
+
+'42' > test.txt
+$after = Get-ChildItem
+
+compare-object $before $after -Property length, name
+
+1,2,3,2,3,1,3,2,1 | sort-object | get-unique
+will output 1,2,3 
+
+important to sort first 
+
+
+
+DIFFERENCE BETWEEN WRITE-HOST and WRITE-OUTPUT
+write-host is just writing to screen and not allowing for more input 
+write-ouput allows for whatever is being written to be changed and formatted to however we would like
+
+MAKING OBJECTS IN POWERSHELL
+_________________________________________________________________________________________________
+
+$acar= New-Object Object
+Add-Member -MemberType NoteProperty -name color -value Blue -InputObject $acar
+Add-Member -Me NoteProperty -in $acar -name make -value mazda 
+Add-Member -InputObject $acar noteproperty Model "RX-8" 
+$acar | Add-Member noteproperty cab "8-door express van" 
+Add-Member -InputObject $acar ScriptMethod Explode {"my apex seals..."}
+Add-Member -InputObject $acar ScriptMethod BurnOil {"are doritos supposed to taste like this"}
+Add-Member -InputObject $acar ScriptMethod Putters {"hit that granny"}
 
 
 ``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -183,6 +239,54 @@ The ending point will be a random number from 1 through 20.
 $ARRAY = (get-random -minimum -10 -maximum 0)..(get-random -Minimum 1 -Maximum 20)
 $reverse = $array[($array.length-1)..0] 
 
+
+ACTIVITY 5
+
+Create two empty hash tables with the following names:
+employee1
+employee2
+Using the following table of key-value pairs, apply each key-value to the empty hash tables.
+
+$employee1 = [ordered]@{ first="Mary" ; last="Hopper" ; id="001" ; job="Software Developer"}
+$employee2 = [ordered]@{ first="John" ; last="Williams" ; id="002" ; job="Web Developer"}
+$employee3 = [ordered]@{ first="Alex" ; last="Moran" ; id="003" ; job="Software Developer" ; username="amoran003"}
+
+ACTIVITY 6
+
+Display the start time of the earliest and latest running processes
+get-process | where-object {$_.Starttime} | measure-object -property starttime -minimum -maximum | select-object -property minimum, maximum
+
+Identify a cmdlet that returns the current date and time then using this cmdlet and Select-object, display only the current day of the week
+get-date | select-object DayofWeek
+
+Identify a cmdlet that displays a list of installed hotfixes.
+get-hotfix
+
+Extend the expression to sort the list by install date, and display only the install date and hotfix ID.
+Get-HotFix | Sort-Object -Property InstalledOn | Select-Object HotFixID, InstalledOn
+
+Extend the expression further, but this time sort by description, include description, hotfix ID, and install Date.
+Get-HotFix | Sort-Object description | Select-Object description, HotFixID, InstalledOn
+
+ACTIVITY 7
+
+Create a custom object that contains information about the host system using the following:
+
+Win32_ComputerSystem
+Win32_BIOS
+Win32_OperatingSystem
+Win32_LogicalDisk
+
+$customobject = New-Object Object
+Add-Member -MemberType NoteProperty -name Version -value (Get-WmiObject Win32_OperatingSystem).version -InputObject $customobject
+Add-Member -MemberType NoteProperty -name OperatingSystem -value (Get-WmiObject Win32_operatingsystem).caption -InputObject $customobject
+Add-Member -MemberType NoteProperty -name Manufacturer -value (Get-WmiObject Win32_BIOS).manufacturer -InputObject $customobject
+Add-Member -MemberType NoteProperty -name Disks -Value (get-wmiobject Win32_LogicalDisk) -InputObject $customobject
+Add-Member -MemberType NoteProperty -name ComputerName -value (Get-WmiObject Win32_ComputerSystem).name -InputObject $customobject
+
+$customobject | format-list
+
+ACTIVITY 8
 
 
 
