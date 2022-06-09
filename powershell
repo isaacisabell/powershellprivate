@@ -138,6 +138,8 @@ $ord_hash["videogame", "IsTrash"]
 $ord_hash.playerbase="preteens" to add a new keyvalue pair to ordered hash
 $ord_hash.add("streamer" ; "hope not")
 
+to change a value in a orderedhash use same syntax as adding a new keyvalue pair but with the key of the one you want and the text as replacing value
+
 PS PROVIDERS = how to store and interact with an object
 get-psprovider
 get-psdrive
