@@ -287,11 +287,11 @@ $pattern = '([A-Z]{2})(\d{4})'
 
 if ($line1 -match $pattern)
  {
-    echo $matches
+    echo $matches[0]
  }
 elseif ($line2 -match $pattern)
  {
-    echo $matches
+    echo $matches[0]
  }
 else {
     echo "No model number found"
