@@ -201,7 +201,102 @@ Add-Member -InputObject $acar ScriptMethod Explode {"my apex seals..."}
 Add-Member -InputObject $acar ScriptMethod BurnOil {"are doritos supposed to taste like this"}
 Add-Member -InputObject $acar ScriptMethod Putters {"hit that granny"}
 
+COMPARISON OPERATORS
+-eq Equals
+-ne Not Equal
+-gt Greater Than
+-lt Less Than
+-ge Greater Than or Equal To
+-le Less Than or Equal To
+-contains Contains (used for a collection of items)
+-match Matches anywhere in the string
+-like Both sides of expression are identical
+-in Returns true when value is contained within a collection
+-replace Replaces a string pattern
+-is Returns true if both objects are the same type
 
+"abc" -eq "def"
+returns true
+"abc" -ne "def"
+returns true
+
+Want most specific variable or string on right side of operator otherwise powershell logic will screw up
+
+LIKE
+"inky" -like "*" ----> true
+"Blinky" -like "Bl?nky" ----> true
+"Pinky" -like "[L-Q]inky" ----> true
+"Clyde -like [A-C]lyde" ---> true
+
+NOT LIKE
+"inky" -notlike "*" ----> true
+"Blinky" -notlike "Bl?nky" ----> true
+"Pinky" -notlike "[A-F]inky" ----> true
+"Clyde -notlike [DEF]lyde" ---> true
+
+MATCH
+
+$text = "Your acount username is ACE4495"
+$pattern = '([A-F]{3})(\d{4})'
+$text -match $pattern
+
+CONTAINS
+$ghosts = 'inky', 'blinky', 'pinky', 'clyde'
+$ghosts -contains 'blinky'
+
+AND/OR
+(($num -gt 1) -and(or) ($num -lt 10))
+true
+
+FIND A SPECIFIC NAMED PROCESS 
+Get-Process | Where-Object {$_.name -like 'power*'} ---> to find powershell from get-process
+
+LOOPS
+
+switch(10)
+{
+  (1+9) {
+    "congrats you did adds right"
+      }
+  (1+10) {
+    "This be wrong"
+      }
+  (1+11) {
+    "Dummy"
+      }
+}
+
+2 MULTIPLE VALUES
+$num = (get-random -minimum 0 -maximum 10)
+switch($num) {
+  
+  
+DEFAULTS IN SWITCHES
+$val = "meg"
+Switch($val) {
+  peter { "Thats the father" }
+  lois { "Thats the mother" }
+  stewie { "That's the youngest child" }
+  chris { "Thats the oldest child" }
+  default { "Nobody cares about you $val" }
+}
+
+$line1 = "Do you have model number: MT5437 for john.doe@sharklasers.com?"
+$line2 = "What model number for john.doe@sharklasers.com?"
+$pattern = '([A-Z]{2})(\d{4})'
+
+if ($line1 -match $pattern)
+ {
+    echo $matches
+ }
+elseif ($line2 -match $pattern)
+ {
+    echo $matches
+ }
+else {
+    echo "No model number found"
+ }
+WORKING ELSEIF STATEMENT  TO FIND MODEL NUMBER
 ``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 ACTIVITIES
 ACTIVITY 1
