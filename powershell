@@ -297,6 +297,171 @@ else {
     echo "No model number found"
  }
 WORKING ELSEIF STATEMENT  TO FIND MODEL NUMBER
+
+WHILE LOOP
+
+while(condition) {
+  code to be executed
+  n++
+}
+
+DO AT LEAST ONCE WHILE LOOP
+$num = 3
+while ($num -lt 3) {
+$num
+$num++
+}
+do {
+    $num
+    $num++
+}while($num -lt 3)
+$num
+
+DO WHILE STATEMENT
+
+do {
+    $num
+    $num++
+}until($num -lt 3)
+$num
+
+FOR LOOPS
+
+for (initialization; condition; increment) {
+  code block
+}
+for ($num = 10; $num -le 20; $num++){$num}
+
+for ($i = 0; $i -le 255; $i++) {
+  write-host 192.168.0.$i
+}
+
+FOR EACH LOOP
+foreach(variable in expression) {
+  code block
+}
+foreach($item in Get-Childitem C:\ -Recurse) {
+  $item.name
+}
+
+FOREACH OBJECT LOOP
+Get-Childitem C:\ -Recurse | foreach-object {$_.name}
+
+USING BREAK OR CONTINUE IN A LOOP
+$num = 0
+while($num -lt 10) {
+  $num += 1
+  if($num -eq 5) {
+    break(OR CONTINUE)
+  }
+  $num
+}
+READING AND WRITING TO FILES
+
+get-content to read from 
+
+set-content to write to files
+
+add-content to append to files
+
+Set-Content -path .\example.txt -value "Amogus Amogus Amogus Amogus Amogus"
+Get-Content .\example.txt
+Add-Content -path .\example.txt -value "word for word bar for bar"
+
+TO DECLARE A FUNCTION:
+function <function name> { <function code goes here> }
+ex: function Hello-World { 'Hello World!' }
+to call on a function just say the name of the function
+
+>Hello-World
+>Hello World!                           
+
+to list all functions: gci function:*
+to see what any given function does:
+Get-content function:<name of function>
+function <function name> (<$parameter name>) { <function code goes here> }
+
+function basic-parameter ($value) {
+is ($value) {
+      write-host "The parameter is $value -For
+      
+function <function name> ($parameter1, parameter2) {function code}
+
+function Many-Params ($value1, $value2) {
+if ($value1 -gt $value2){
+  Write-host "$value1" -Foreground Green -NoNewline
+  Write-host "is e
+  
+  
+$parameter1='<default val,$paramter2='<default value>'
+
+switch parameters are boolean in nanture
+
+if ($switchPro) 
+
+whenever we assign a default value to a Parameter, if the parameter is never given when the function gets called, then the default value gets assigned. 
+However, if you do provide and argument to the parameter, 
+then the parameter gets overwritten by that argument's value.
+function Default-Params {
+  param(
+    $parameter1='90', $parameter2='65535'
+    )
+ }
+ 
+a switch parameter is a boolean, it is either active or not (true or false) 
+
+function Nintendo {
+  param(
+  [switch]
+  $switchpro
+)
+if 9$switchpro) { 
+  Write-Host " Switch is activated"
+  Write-Host " Switchpro research initiated"
+}
+else {
+  Write-Host "Switch is off"
+  Write-Host "Switchpro never coming"
+  }
+}
+MANDO PARAMETERS
+function Mando-Params {
+    param(
+        [Parameter(Mandatory=$true)]
+        $param
+    )
+
+while ([string]::IsNullOrWhiteSpace($param)) {
+    $param= read-host -prompt "enter a string"
+    }
+    "The argument $param was mandotory for the parameter" 
+    }
+    Mando-Params
+    
+    
+ MAKING PARAMETERS WITH HELP MESSAGES
+ 
+ function Help-Params {
+    param(
+    [Parameter(Mandatory=$true, HelpMessage='Enter an integer')]
+    [Int]$param
+    )
+    while (-not $param) {
+        $param = Read-Host -Prompt "Enter a string"
+        }
+    "The argument $param was mandatory for the parameter"
+    }
+    Help-Params
+    
+  MAKING POSITIONAL PARAMETERS
+  
+  Positional
+
+
+
+
+$_, $input, $args automatic variables 
+
 ``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 ACTIVITIES
 ACTIVITY 1
@@ -382,6 +547,168 @@ Add-Member -MemberType NoteProperty -name ComputerName -value (Get-WmiObject Win
 $customobject | format-list
 
 ACTIVITY 8
+Find and extract the model number from the provided lines of text. If there isn’t a model number then display to the user that a model number wasn’t found
+Check both lines for model numbers and report individually the line and model number if found.
+
+$line1 = "Do you have model number: MT5437 for john.doe@sharklasers.com?"
+$line2 = "What model number for john.doe@sharklasers.com?"
+$pattern = '([A-Z]{2})(\d{4})'
+
+if ($line1 -match $pattern)
+ {
+    echo $matches[0]
+ }
+elseif ($line2 -match $pattern)
+ {
+    echo $matches[0]
+ }
+else {
+    echo "No model number found"
+ }
+WORKING ELSEIF STATEMENT  TO FIND MODEL NUMBER
+
+switch($pattern){
+  { $line -match $_ } {
+    $model = $matches[0]
+    "The model number is $model and it's on line 1" }
+  { $line2 -match $_ } {
+    $model = $matches[0]
+    "Yes model number is $model and it's on line 2" }
+  { $line1 -nomatch $_ } {
+    "There is no model number on line1"
+  {$line2 -nomatch $_ } {
+    "There is no match on line2" }
+WORKING SWITCH STATEMENT TO FIND MODEL NUMBERS
+
+ACTIVITY 9
+
+ACTIVITY: Looping & Iteration
+Part 1
+Use an array to iterate and open the following
+Notepad
+MS Edge
+MSpaint
+Query the processes
+Kill the processes from PowerShell
+$procs = "notepad", "msedge", "mspaint"
+$procs | foreach-object { Start-Process $_ }
+get-process
+$procs | foreach-object { Stop-Process $_ }
+
+Part 2
+Use an array to iterate and open the following
+Notepad
+MS Edge
+MSpaint
+Query the processes
+Save the ProcessIDs to a text file called procs.txt
+Iterate through the ProcessIDs in the text file and kill them
+
+$file = "$pwd\procs.txt"
+foreach($proc in $procs) {
+  get-process | where-object {$_.name -like $proc} | foreach-object {add-content $file $_.id} }
+  
+
+Part 3
+Use an array to iterate and open the following
+Notepad
+MS Edge
+MSpaint
+
+Query the processes and display only the following information in order by process ID
+Process ID
+Process Name
+The time the process started
+The amount of time the process has spent on the processor
+The amount of memory assigned to the process
 
 
+
+$procs = "notepad", "msedge", "mspaint"
+$procs | foreach-object { Start-Process $_ }
+get-process 
+$procs | foreach-object { Stop-Process $_ }
+$file = "$pwd\procs.txt"
+foreach($proc in $procs) {
+get-process | where-object {$_.name -like $proc} | foreach-object {add-content $file $_.id} }
+Get-content .\procs.txt | foreach-object{stop-process $_}
+foreach($proc in $procs){
+  get-process | where-object {$_.name -like $proc} | `
+  format-table -property id, name, starttime, totalprocessortime, `
+  virtualmemorysize, workingset64 }
+
+ACTIVITY 10
+PART1 Write a function that returns the Ordinal date of the current date.
+
+$jan1 = Get-Date 1/1
+$today = Get-Date
+($today - $jan1).days
+$julian = ($today - $jan1).days
+$julian.ToString("000")
+
+function retrieve-ordinaldate {
+  $day=9get-date).dayofyear
+  $year=(get-date).year
+  write-host "$year-$day"
+
+PART2 Create a function that takes a number(n) as an argument and returns the square(n^2) of the number.
+
+function Get-Square([int]$value)
+{
+    $result = $value * $value
+    return $result
+}
+
+$value = Read-Host 'Enter a value'
+$result = Get-Square $value
+Write-Output "$value * $value = $result"
+
+function number-squared([int]$number) {
+  $number * $number
+}
+
+PART3 Create a function that takes three (3) arguments and returns the product of the arguments.
+$arg1 = [int](Read-Host)
+$arg2 = [int](Read-Host)
+$arg3 = [int](Read-Host)
+$arguments = ($arg1 * $arg2 * $arg3)
+$arguments 
+
+ACTIVITY 11
+PART 1
+function find-hypo($a, $b) {
+  $c2 = ($a * $a) + ($b * $b)
+  [math]::sqrt($c2)
+  }
+
+FIND A HYPOTENSUE WHEN GIVEN TWO INTEGER VALUES
+PART 2
+function get-anlge($a,$b) {
+  $angle = 180 ($a + $b)
+  write-host $angle
+
+FIND AN ANGLE TO FIND IF ITS A REAL TRIANGLE OR NOT
+PART 3
+function display-persinfo {
+  param (
+    [Parameter(Mandatory=$true, position=0, helpmessage="Type in your first name")]
+      [string]$name
+    [Parameter(Mandatory=$true, position=0, helpmessage="Type in your first name")]
+      [string]$last
+    [Parameter(Mandatory=$true, position=0, helpmessage="Type in your first name")]
+      [string]$name
+    [Parameter(Mandatory=$true, position=0, helpmessage="Type in your first name")]
+      [string]$name
+      
+      
+Create a function that takes the following as mandatory parameters:
+
+First Name
+Last Name
+Age
+Weight in pounds(lbs)
+
+
+
+PRACTICE TEST
 
