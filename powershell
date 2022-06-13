@@ -855,3 +855,73 @@ function q10 ($filepath,$lasthash) {
         else{
             write-output $false}
 }
+
+REVIEW  
+
+          
+Get all lines that start with a specific word:
+    
+   
+    $content = get-content .\<filename>
+      foreach ($line in $content) {
+          if ($line.startswith("It's")) {
+              write-host $line
+            }
+        }
+        
+        
+        OPTION TWO:        
+        
+          $content = get-content .\<filename>
+    $count = 0
+    foreach ($line in $content) {
+    *** To find and replace use $line.replace("<string to replace>", "<replacement>") ***
+        write-host $count -nonewline; write-host "-"$line; $count ++ 
+    }
+    
+Join an array of words:
+
+    $words = "<list of words>"
+    $words -join ("-")
+
+          OR
+
+    $words -join ("--word: ")
+
+
+
+Take input from a user and continue to ask for input until they enter an empty string:
+
+    Do {
+    
+        $user_input= read-host
+        if (user_input.length -ne 0) {
+            $values += $user_input
+        }
+        
+        
+    } until ($user_input.lenght -eq 0)
+    
+    ($values | sort -property length -descending)[0]
+    *** to return the largest value entered ***
+    
+    
+To filter on a property use where-object:
+    
+    Whenever you select-object, it will ONLY select that property and nothing else will be output
+    Where-object acts as a filter and will pass the ENTIRE object and ALL its properties to the output
+    
+    get-process | select name | select * -first 1
+    
+    both do the exact same thing:
+    get-process | where -property name -like "*" | select * -first 1 
+    get-process | select * | where {$_.name -like "*"} | select -first 1
+
+    
+    get-process | select * | where { ($_.name).startswith("power") }
+                                              *** or use .endswith() ***
+    
+for determining if something is null or empty
+    ($user_input.length -eq 0)
+    [string]::isnullorempty($user_input)
+    [string]::isnullorwhitespace($user_input)
